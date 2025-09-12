@@ -1,9 +1,6 @@
 # Viagem
 
-<source src="minhaMusica.mp3" type="audio/mpeg">
-👉 [Clique para ouvir](https://Rafa4365.github.io/Viagem/)
-
-[Phil.Collins.-.You.ll.Be.In.My.Heart_55121498 (4).mp3](https://github.com/user-attachments/files/22303237/Phil.Collins.-.You.ll.Be.In.My.Heart_55121498.4.mp3)
+👉 [Clique para ouvir](https://Rafa4365.github.io/Viagem/) [Phil.Collins.-.You.ll.Be.In.My.Heart_55121498 (4).mp3](https://github.com/user-attachments/files/22303426/Phil.Collins.-.You.ll.Be.In.My.Heart_55121498.4.mp3)
 
  
 <img width="400" height="400" alt="Foto 1 1" src="https://github.com/user-attachments/assets/5ce26f26-4d10-4b0c-bf7d-ed36d1f50ea8" />
