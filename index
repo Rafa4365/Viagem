@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Player de Música Simples</title>
+  <style>
+    :root{font-family:Inter,system-ui,Arial,Helvetica,sans-serif}
+    body{display:flex;align-items:center;justify-content:center;height:100vh;background:#f4f6f8;margin:0}
+    .card{width:min(640px,95%);background:#fff;padding:20px;border-radius:12px;box-shadow:0 6px 20px rgba(0,0,0,.06)}
+    h1{font-size:20px;margin:0 0 12px}
+    .controls{display:flex;gap:8px;align-items:center;margin-top:12px}
+    button{padding:8px 12px;border-radius:8px;border:1px solid #ddd;background:#f8f9fb;cursor:pointer}
+    .playlist{margin-top:12px}
+    .track{padding:8px;border-radius:8px;border:1px solid transparent;display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+    .track:hover{border-color:#e6e9ef;background:#fbfcfe}
+    input[type=range]{width:100%}
+    .small{font-size:13px;color:#555}
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h1>Player de Música Simples</h1>
+    <div class="small">Cole URLs diretas de arquivos MP3 ou use as demos abaixo.</div>
+
+    <audio id="audio" preload="metadata"></audio>
+
+    <div class="controls">
+      <button id="prev">⏮️</button>
+      <button id="play">▶️</button>
+      <button id="next">⏭️</button>
+      <div style="flex:1;margin-left:8px;margin-right:8px">
+        <input type="range" id="seek" value="0" min="0" step="1" />
+        <div style="display:flex;justify-content:space-between;font-size:12px;color:#666">
+          <span id="time">00:00</span>
+          <span id="duration">00:00</span>
+        </div>
+      </div>
+      <input id="volume" type="range" min="0" max="1" step="0.01" value="1" style="width:100px" />
+    </div>
+
+    <div style="margin-top:12px;display:flex;gap:8px">
+      <input id="urlInput" placeholder="Colar URL do MP3 aqui (ex: https://...)" style="flex:1;padding:8px;border-radius:8px;border:1px solid #ddd"/>
+      <button id="add">Adicionar</button>
+    </div>
+
+    <div class="playlist" id="playlist">
+      <!-- tracks serão inseridas aqui -->
+    </div>
+  </div>
+
+  <script>
+    const audio = document.getElementById('audio');
+    const playBtn = document.getElementById('play');
+    const prevBtn = document.getElementById('prev');
+    const nextBtn = document.getElementById('next');
+    const seek = document.getElementById('seek');
+    const timeEl = document.getElementById('time');
+    const durationEl = document.getElementById('duration');
+    const volume = document.getElementById('volume');
+    const urlInput = document.getElementById('urlInput');
+    const addBtn = document.getElementById('add');
+    const playlistEl = document.getElementById('playlist');
+
+    const tracks = [
+      {title: 'Demo 1', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3'},
+      {title: 'Demo 2', url: 'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3'}
+    ];
+
+    let idx = 0;
+
+    function format(t){
+      if (!t || isNaN(t)) return '00:00';
+      const m = Math.floor(t/60).toString().padStart(2,'0');
+      const s = Math.floor(t%60).toString().padStart(2,'0');
+      return `${m}:${s}`;
+    }
+
+    function loadTrack(i){
+      const t = tracks[i];
+      if(!t) return;
+      audio.src = t.url;
+      audio.load();
+      highlightActive();
+    }
+
+    function highlightActive(){
+      [...playlistEl.children].forEach((el, i)=>{
+        el.classList.toggle('active', i===idx);
+      });
+    }
+
+    function renderPlaylist(){
+      playlistEl.innerHTML = '';
+      tracks.forEach((t,i)=>{
+        const div = document.createElement('div');
+        div.className = 'track';
+        div.innerHTML = `<span>${t.title}</span><div><button data-i='${i}' class='play-item'>▶️</button></div>`;
+        playlistEl.appendChild(div);
+      });
+      playlistEl.querySelectorAll('.play-item').forEach(btn=>btn.addEventListener('click',e=>{
+        idx = Number(btn.dataset.i);
+        loadTrack(idx);
+        audio.play();
+        updatePlayButton();
+      }));
+      highlightActive();
+    }
+
+    addBtn.addEventListener('click', ()=>{
+      const url = urlInput.value.trim();
+      if(!url) return alert('Cole a URL de um arquivo MP3.');
+      tracks.push({title: url.split('/').pop() || 'Música', url});
+      urlInput.value = '';
+      renderPlaylist();
+    });
+
+    playBtn.addEventListener('click', ()=>{
+      if(audio.paused) audio.play(); else audio.pause();
+      updatePlayButton();
+    });
+
+    prevBtn.addEventListener('click', ()=>{ idx = (idx-1 + tracks.length) % tracks.length; loadTrack(idx); audio.play(); updatePlayButton(); });
+    nextBtn.addEventListener('click', ()=>{ idx = (idx+1) % tracks.length; loadTrack(idx); audio.play(); updatePlayButton(); });
+
+    function updatePlayButton(){ playBtn.textContent = audio.paused ? '▶️' : '⏸️'; }
+
+    audio.addEventListener('timeupdate', ()=>{
+      seek.max = Math.floor(audio.duration || 0);
+      seek.value = Math.floor(audio.currentTime || 0);
+      timeEl.textContent = format(audio.currentTime);
+      durationEl.textContent = format(audio.duration);
+    });
+
+    seek.addEventListener('input', ()=>{ audio.currentTime = seek.value; });
+    volume.addEventListener('input', ()=>{ audio.volume = volume.value; });
+
+    audio.addEventListener('ended', ()=>{ nextBtn.click(); });
+
+    renderPlaylist();
+    loadTrack(idx);
+  </script>
+</body>
+</html>
