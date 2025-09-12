@@ -1,15 +1,4 @@
 # Viagem
-# Player de Música Simples
-
-Este repositório contém um player de música em HTML simples. Você pode abrir o `index.html` localmente ou acessar direto pelo GitHub Pages.
-
-## Como usar
-
-1. Abra `index.html` no navegador **ou** use o link abaixo.
-2. Cole URLs diretas de arquivos MP3 no campo e clique em **Adicionar**.
-3. Use os controles para reproduzir, pausar, pular faixas e ajustar volume.
-
-## Acesse o Player
 
 👉 [Clique aqui para abrir o player](https://Rafa4365.github.io/Viagem/)
 [ Phil Collins - You'll Be In My Heart_55121498.mp3](https://github.com/user-attachments/files/22219629/07.-.Phil.Collins.-.You.ll.Be.In.My.Heart_55121498.mp3)
