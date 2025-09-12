@@ -1,8 +1,11 @@
 # Viagem
+https://Rafa4365.github.io/Viagem/
+# Player de Música 🎵
 
-👉(https://Rafa4365.github.io/Viagem/)(https://github.com/user-attachments/files/22302838/07.-.Phil.Collins.-.You.ll.Be.In.My.Heart_55121498.4.mp3)
+Abra o player aqui:  
+👉 Clique aqui: 07.-.Phil.Collins.-.You.ll.Be.In.My.Heart_55121498 (4).mp3](https://github.com/user-attachments/files/22302978/07.-.Phil.Collins.-.You.ll.Be.In.My.Heart_55121498.4.mp3)
+lique para ouvir](https://Rafa4365.github.io/Viagem/)
 
-## Hospedar com GitHub Pages
 
 <img width="400" height="400" alt="Foto 1 1" src="https://github.com/user-attachments/assets/5ce26f26-4d10-4b0c-bf7d-ed36d1f50ea8" />
 <img width="400" height="400" alt="Foto 2 2" src="https://github.com/user-attachments/assets/45f2fef7-be56-48c8-9303-a4eed2a572d7" />
